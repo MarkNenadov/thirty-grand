@@ -1,7 +1,7 @@
 from .. import observation
 
 
-def query_all_observations(data, scientific_name_partial=None):
+def query_all_observations(data, scientific_name_partial=None) -> [observation.Observation]:
     observations = []
 
     for _, row in data.iterrows():
