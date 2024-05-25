@@ -81,9 +81,6 @@ dmypy.json
 # pyenv
 .python-version
 
-# poetry
-poetry.lock
-
 # Editor-specific files
 .vscode/
 .idea/
