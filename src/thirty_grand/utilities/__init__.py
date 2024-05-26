@@ -2,7 +2,7 @@ from prettytable import PrettyTable
 from .. import observation
 
 
-def print_observations_table(observations: [observation.Observation]):
+def get_observations_table_str(observations: [observation.Observation]):
     table = PrettyTable()
     table.field_names = [
         "Observation ID",
@@ -28,5 +28,8 @@ def print_observations_table(observations: [observation.Observation]):
                 obs.taxon_id
             ]
         )
+    return table.get_string()
 
-    print(table)
+
+def print_observations_table(observations: [observation.Observation]):
+    print(get_observations_table_str(observations))
