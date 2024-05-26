@@ -1,5 +1,15 @@
 class Observation:
-    def __init__(self, obs_id, observed_on_string, observed_on, time_observed_at, scientific_name, common_name, iconic_taxon_name, taxon_id):
+    def __init__(
+            self,
+            obs_id,
+            observed_on_string,
+            observed_on,
+            time_observed_at,
+            scientific_name,
+            common_name,
+            iconic_taxon_name,
+            taxon_id
+    ):
         self.obs_id = obs_id
         self.observed_on_string = observed_on_string
         self.observed_on = observed_on
