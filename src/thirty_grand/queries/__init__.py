@@ -1,3 +1,4 @@
+import random
 from typing import Optional
 
 import pandas as pd
@@ -19,3 +20,7 @@ def query_all_observations(
         if _name_matches(common_name_partial, row['common_name']) and _name_matches(scientific_name_partial, row['scientific_name']):
             observations.append(observation.Observation.create_from_row(row))
     return observations
+
+
+def random_sample(data: pd.DataFrame, count: int):
+    return random.sample(query_all_observations(data), count)
