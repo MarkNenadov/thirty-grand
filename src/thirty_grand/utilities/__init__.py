@@ -39,7 +39,7 @@ def print_observations_table(observations: [observation.Observation]) -> None:
 
 
 def display_yearly_observation_barchart(observations: [observation.Observation]) -> None:
-    years, numbers = extract_year_observation_counts(observations)
+    years, numbers = extract_yearly_observation_counts(observations)
 
     pyplot.bar(years, numbers, color='skyblue')
 
@@ -56,7 +56,7 @@ def extract_years(observations: [observation.Observation]) -> []:
     return [datetime.datetime.strptime(obs.observed_on, "%Y-%m-%d").year for obs in observations]
 
 
-def extract_year_observation_counts(observations: [observation.Observation]):
+def extract_yearly_observation_counts(observations: [observation.Observation]):
     year_counts = Counter(extract_years(observations))
 
     years = list(year_counts.keys())
