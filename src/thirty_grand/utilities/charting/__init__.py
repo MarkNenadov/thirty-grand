@@ -1,10 +1,12 @@
+from typing import List
+
 import matplotlib.pyplot as pyplot
 
 from src.thirty_grand import observation
 from src.thirty_grand.utilities import extract_yearly_observation_counts
 
 
-def display_yearly_observation_barchart(observations: [observation.Observation], figure_size=(5,7)) -> None:
+def display_yearly_observation_barchart(observations: List[observation.Observation], figure_size=(5,7)) -> None:
     if not observations:
         print("No observations to display.")
         return
@@ -19,5 +21,5 @@ def display_yearly_observation_barchart(observations: [observation.Observation],
     pyplot.ylabel('Number of Observations')
 
     pyplot.xticks(years)
-
+    pyplot.tight_layout()
     pyplot.show()
