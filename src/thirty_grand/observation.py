@@ -43,7 +43,7 @@ class Observation:
         return Observation(
             obs_id=row['id'],
             observed_on_string=row['observed_on_string'],
-            observed_on=row['observed_on'],
+            observed_on='' if pd.isna(row['observed_on']) else row['observed_on'],
             time_observed_at=row['time_observed_at'],
             scientific_name='' if pd.isna(row['scientific_name']) else row['scientific_name'],
             common_name=row['common_name'],

@@ -5,7 +5,7 @@ from src.thirty_grand import observation
 
 
 def extract_years(observations: [observation.Observation]) -> []:
-    return [datetime.datetime.strptime(obs.observed_on, "%Y-%m-%d").year for obs in observations]
+    return [datetime.datetime.strptime(obs.observed_on, "%Y-%m-%d").year for obs in observations if obs.observed_on != '']
 
 
 def extract_yearly_observation_counts(observations: [observation.Observation]) -> [int, int]:
