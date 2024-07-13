@@ -1,5 +1,7 @@
 from dataclasses import dataclass
 
+import pandas as pd
+
 
 @dataclass
 class Observation:
@@ -43,7 +45,7 @@ class Observation:
             observed_on_string=row['observed_on_string'],
             observed_on=row['observed_on'],
             time_observed_at=row['time_observed_at'],
-            scientific_name=row['scientific_name'],
+            scientific_name='' if pd.isna(row['scientific_name']) else row['scientific_name'],
             common_name=row['common_name'],
             iconic_taxon_name=row['iconic_taxon_name'],
             taxon_id=row['taxon_id']
