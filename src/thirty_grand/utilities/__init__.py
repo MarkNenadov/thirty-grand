@@ -1,17 +1,17 @@
 from collections import Counter
 import datetime
+from typing import List, Tuple
 
 from src.thirty_grand import observation
 
 
-def extract_years(observations: [observation.Observation]) -> []:
+def extract_years(observations: [observation.Observation]) -> List[int]:
     return [datetime.datetime.strptime(obs.observed_on, "%Y-%m-%d").year for obs in observations if obs.observed_on != '']
 
 
-def extract_yearly_observation_counts(observations: [observation.Observation]) -> [int, int]:
+def extract_yearly_observation_counts(observations: [observation.Observation]) -> Tuple[List[int], List[int]]:
     year_counts = Counter(extract_years(observations))
 
-    years = list(year_counts.keys())
-    numbers = list(year_counts.values())
+    years, counts = zip(*year_counts.items())
 
-    return [years, numbers]
+    return years, counts
