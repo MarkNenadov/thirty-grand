@@ -14,6 +14,8 @@ class Observation:
             observed_on_string,
             observed_on,
             time_observed_at,
+            class_name,
+            family_name,
             scientific_name,
             common_name,
             iconic_taxon_name,
@@ -23,6 +25,8 @@ class Observation:
         self.observed_on_string = observed_on_string
         self.observed_on = observed_on
         self.time_observed_at = time_observed_at
+        self.family_name = family_name
+        self.class_name = class_name
         self.scientific_name = scientific_name
         self.common_name = common_name
         self.iconic_taxon_name = iconic_taxon_name
@@ -33,6 +37,8 @@ class Observation:
                 f"observed_on_string='{self.observed_on_string}', "
                 f"observed_on='{self.observed_on}', "
                 f"time_observed_at='{self.time_observed_at}', "
+                f"family_name='{self.family_name}', "
+                f"class_name='{self.class_name}', "
                 f"scientific_name='{self.scientific_name}', "
                 f"common_name='{self.common_name}', "
                 f"iconic_taxon_name='{self.iconic_taxon_name}', "
@@ -45,6 +51,8 @@ class Observation:
             observed_on_string=row['observed_on_string'],
             observed_on='' if pd.isna(row['observed_on']) else row['observed_on'],
             time_observed_at=row['time_observed_at'],
+            class_name=row['taxon_class_name'],
+            family_name=row['taxon_family_name'],
             scientific_name='' if pd.isna(row['scientific_name']) else row['scientific_name'],
             common_name=row['common_name'],
             iconic_taxon_name=row['iconic_taxon_name'],
