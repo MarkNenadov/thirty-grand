@@ -1,3 +1,5 @@
+from collections import defaultdict
+
 from prettytable import PrettyTable
 
 from src.thirty_grand import observation
@@ -32,5 +34,71 @@ def get_observations_table_str(observations: [observation.Observation]):
     return table.get_string()
 
 
+def get_property_counts(observations, property_name):
+    property_counts = defaultdict(int)
+    for obs in observations:
+        property_value = getattr(obs, property_name, "")
+        if property_value != "":
+            property_counts[property_value] += 1
+    return dict(property_counts)
+
+
+def get_class_table_str(observations: [observation.Observation], threshold: int):
+    class_counts_dict = get_property_counts(observations, "class_name")
+    sorted_class_counts = sorted(class_counts_dict.items(), key=lambda item: item[1], reverse=True)
+
+
+    table = PrettyTable()
+    table.field_names = [
+        "Class",
+        "Number of Observations",
+    ]
+
+    for class_name, class_name_count in sorted_class_counts:
+        if class_name_count >= threshold:
+            table.add_row(
+                [
+                    class_name,
+                    class_name_count,
+                ]
+            )
+    return table.get_string()
+
+
+def get_taxon_table_str(observations: [observation.Observation], threshold: int, taxon_property_name: str):
+    assert taxon_property_name is not None, "get_taxon_table_str requires taxon_property_name"
+    assert taxon_property_name.endswith("_name"), "get_taxon_table_str requires taxon_property_name ending with '_name'"
+
+    taxon_counts_dict = get_property_counts(observations, taxon_property_name)
+    sorted_txxon_counts = sorted(taxon_counts_dict.items(), key=lambda item: item[1], reverse=True)
+
+
+    table = PrettyTable()
+    table.field_names = [
+        taxon_property_name.split("_")[0].capitalize(),
+        "Number of Observations",
+    ]
+
+    for taxon_name, taxon_name_count in sorted_txxon_counts:
+        if taxon_name_count >= threshold:
+            table.add_row(
+                [
+                    taxon_name,
+                    taxon_name_count,
+                ]
+            )
+    return table.get_string()
+
+
 def print_observations_table(observations: [observation.Observation]) -> None:
     print(get_observations_table_str(observations))
+
+
+def print_class_table(observations: [observation.Observation], threshold: int) -> None:
+    print(get_taxon_table_str(observations, threshold, "class_name"))
+
+def print_family_table(observations: [observation.Observation], threshold: int) -> None:
+    print(get_taxon_table_str(observations, threshold, "family_name"))
+
+def print_order_table(observations: [observation.Observation], threshold: int) -> None:
+    print(get_taxon_table_str(observations, threshold, "order_name"))
