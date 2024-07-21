@@ -1,20 +1,29 @@
 # thirty-grand
 
-### Introduction
+## Introduction
 
-Some tools for exploring and visualizing my 30,000 observations of animals and plants on iNaturalist.
+Some tools for exploring and visualizing my 30,000 observations of animals and plants on iNaturalist. Utilizing Python, pandas, and matplotlib.
 
-### Module Structure
+You can see a (work in progress) report on these 30,000 observation with many photos [here](https://docs.google.com/document/d/19-Nd1FMf-i1crleeBk0qfocPLEZFZPEB0-CNjl1a2Ac/edit?usp=sharing).
 
-- observation => Observation (class)
-- queries (module)
-    - query_all_obervations (function)
-    - random_sample (function)
-- utilities (module)
-  - print_observations_table (function)
-  - display_yearly_observation_barchart (function using matplotlib)
-  - extract_years (function)
-  - extract_yearly_observation_counts (function)
+Mark Nenadov (2024)
 
-Mark Nenadov
-2024
+## Module Structure
+
+### Queries
+- query_all_observations (function)
+- random_sample (function)
+
+### Utilities
+
+Charting
+- display_yearly_observation_barchart (function using matplotlib)
+
+Tables
+- get_observations_table_str (function)
+- print_observations_table (function)
+- get_taxon_table_str (function)
+- print_family_table (function)
+- print_class_table (function)
+- print_order_table (function)
+
