@@ -55,35 +55,6 @@ def get_property_counts(observations, property_name, filter_property = None, fil
     return dict(property_counts)
 
 
-def get_class_table_str(observations: [observation.Observation], threshold: int) -> str:
-    """
-    Get table of observations per Class with a threshold amount.
-
-    Parameters:
-        observations: The list of observations
-        threshold: Only show classes that have at least this number of observations
-
-    """
-    class_counts_dict = get_property_counts(observations, "class_name", None, None)
-    sorted_class_counts = sorted(class_counts_dict.items(), key=lambda item: item[1], reverse=True)
-
-    table = PrettyTable()
-    table.field_names = [
-        "Class",
-        "Number of Observations",
-    ]
-
-    for class_name, class_name_count in sorted_class_counts:
-        if class_name_count >= threshold:
-            table.add_row(
-                [
-                    class_name,
-                    class_name_count,
-                ]
-            )
-    return table.get_string()
-
-
 def get_taxon_table_str(observations: [observation.Observation],
                         threshold: int,
                         taxon_property_name: str,
