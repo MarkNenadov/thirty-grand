@@ -66,6 +66,7 @@ def get_taxon_table_str(observations: [observation.Observation],
     Parameters:
         observations: The list of observations
         threshold: Only show classes that have at least this number of observations
+        taxon_property_name: Name of which taxon we are working with
         filter_property: The naem of the taxon property to use
         filter_value: The value expected for filter in filter_property
     """
@@ -74,7 +75,6 @@ def get_taxon_table_str(observations: [observation.Observation],
 
     taxon_counts_dict = get_property_counts(observations, taxon_property_name, filter_property, filter_value)
     sorted_taxon_counts = sorted(taxon_counts_dict.items(), key=lambda item: item[1], reverse=True)
-
 
     table = PrettyTable()
     table.field_names = [
