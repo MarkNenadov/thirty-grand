@@ -55,6 +55,16 @@ def get_property_observation_counts(observations, property_name, filter_property
     return dict(property_counts)
 
 
+def get_property_distinct_species_count(taxon_property_name: str, taxon_name: str, observations:[observation.Observation]) -> int:
+    distinct_species = set()
+    for obs in observations:
+        taxon_property_value = getattr(obs, taxon_property_name, "")
+        if len(obs.scientific_name.split(" ")) >= 2 and taxon_property_value == taxon_name:
+            distinct_species.add(obs.scientific_name)
+
+    return len(distinct_species)
+
+
 def get_taxon_table_str(observations: [observation.Observation],
                         threshold: int,
                         taxon_property_name: str,
@@ -80,6 +90,7 @@ def get_taxon_table_str(observations: [observation.Observation],
     table.field_names = [
         taxon_property_name.split("_")[0].capitalize(),
         "Number of Observations",
+        "Distinct Species"
     ]
 
     for taxon_name, taxon_name_count in sorted_taxon_counts:
@@ -88,6 +99,7 @@ def get_taxon_table_str(observations: [observation.Observation],
                 [
                     taxon_name,
                     taxon_name_count,
+                    get_property_distinct_species_count(taxon_property_name, taxon_name, observations)
                 ]
             )
     return table.get_string()
