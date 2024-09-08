@@ -34,7 +34,7 @@ def get_observations_table_str(observations: [observation.Observation]) -> str:
     return table.get_string()
 
 
-def get_property_counts(observations, property_name, filter_property = None, filter_by_value = None) -> dict:
+def get_property_observation_counts(observations, property_name, filter_property = None, filter_by_value = None) -> dict:
     """
     Count occurrences of property within obervation list (with option to filter) and return as a dictionary
 
@@ -73,8 +73,8 @@ def get_taxon_table_str(observations: [observation.Observation],
     assert taxon_property_name is not None, "get_taxon_table_str requires taxon_property_name"
     assert taxon_property_name.endswith("_name"), "get_taxon_table_str requires taxon_property_name ending with '_name'"
 
-    taxon_counts_dict = get_property_counts(observations, taxon_property_name, filter_property, filter_value)
-    sorted_taxon_counts = sorted(taxon_counts_dict.items(), key=lambda item: item[1], reverse=True)
+    taxon_observation_counts_dict = get_property_observation_counts(observations, taxon_property_name, filter_property, filter_value)
+    sorted_taxon_counts = sorted(taxon_observation_counts_dict.items(), key=lambda item: item[1], reverse=True)
 
     table = PrettyTable()
     table.field_names = [
