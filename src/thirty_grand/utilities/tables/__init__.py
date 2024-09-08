@@ -108,15 +108,19 @@ def get_taxon_table_str(observations: [observation.Observation],
 
     table = PrettyTable()
     table.field_names = [
+        "Count",
         taxon_property_name.split("_")[0].capitalize(),
         "Number of Observations",
         "Distinct Species"
     ]
 
+    count = 0
     for taxon_name, taxon_name_count in sorted_taxon_counts:
         if taxon_name_count >= threshold:
+            count += 1
             table.add_row(
                 [
+                    count,
                     taxon_name,
                     taxon_name_count,
                     get_property_distinct_species_count(taxon_property_name, taxon_name, observations, filter_place_guess)
