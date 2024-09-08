@@ -133,7 +133,17 @@ def print_class_table(observations: [observation.Observation], threshold: int) -
     print(get_taxon_table_str(observations, threshold, "class_name"))
 
 
-def print_family_table(observations: [observation.Observation], threshold: int = 1, filter_property: str = None, filter_value: str = None) -> None:
+def print_family_table(
+        observations: [observation.Observation],
+        threshold: int = 1,
+        filter_property: str = None,
+        filter_value: str = None,
+        filter_place_guess: str = None,
+) -> None:
+    print(get_taxon_table_str(observations, threshold, "family_name", filter_property, filter_value, filter_place_guess))
+
+
+def print_genera_table(observations: [observation.Observation], threshold: int = 1, filter_property: str = None, filter_value: str = None) -> None:
     print(get_taxon_table_str(observations, threshold, "family_name", filter_property, filter_value))
 
 
