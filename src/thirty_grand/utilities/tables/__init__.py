@@ -34,7 +34,12 @@ def get_observations_table_str(observations: [observation.Observation]) -> str:
     return table.get_string()
 
 
-def get_property_observation_counts(observations, property_name, filter_property = None, filter_by_value = None) -> dict:
+def get_property_observation_counts(
+        observations, property_name,
+        filter_property = None,
+        filter_by_value = None,
+        filter_place_guess: str = None
+) -> dict:
     """
     Count occurrences of property within obervation list (with option to filter) and return as a dictionary
 
@@ -43,6 +48,7 @@ def get_property_observation_counts(observations, property_name, filter_property
         property_name: The property as it appears on the observation object
         filter_property: An additional property to filter on
         filter_by_value: The value expected in filter_property to execute the filter
+        filter_place_guess: partial match filter on place guess
 
     """
     property_counts = defaultdict(int)
@@ -50,17 +56,23 @@ def get_property_observation_counts(observations, property_name, filter_property
         property_value = getattr(obs, property_name, "")
         filter_value = getattr(obs, filter_property, "") if filter_property and filter_by_value else ""
 
-        if property_value != "" and (filter_by_value is None or filter_value == filter_by_value):
+        if property_value != "" and (filter_by_value is None or filter_value == filter_by_value) and (filter_place_guess is None or filter_place_guess == "" or (filter_place_guess.lower() in obs.place_guess.lower())):
             property_counts[property_value] += 1
     return dict(property_counts)
 
 
-def get_property_distinct_species_count(taxon_property_name: str, taxon_name: str, observations:[observation.Observation]) -> int:
+def get_property_distinct_species_count(
+        taxon_property_name: str,
+        taxon_name: str,
+        observations:[observation.Observation],
+        filter_place_guess: str
+) -> int:
     distinct_species = set()
     for obs in observations:
-        taxon_property_value = getattr(obs, taxon_property_name, "")
-        if len(obs.scientific_name.split(" ")) >= 2 and taxon_property_value == taxon_name:
-            distinct_species.add(obs.scientific_name)
+        if (filter_place_guess is None or filter_place_guess == "" or (filter_place_guess.lower() in obs.place_guess.lower())):
+            taxon_property_value = getattr(obs, taxon_property_name, "")
+            if len(obs.scientific_name.split(" ")) >= 2 and taxon_property_value == taxon_name:
+                distinct_species.add(obs.scientific_name)
 
     return len(distinct_species)
 
@@ -69,7 +81,8 @@ def get_taxon_table_str(observations: [observation.Observation],
                         threshold: int,
                         taxon_property_name: str,
                         filter_property: str = None,
-                        filter_value: str = None):
+                        filter_value: str = None,
+                        filter_place_guess: str = None):
     """
     Get table of observations per given Taxon with a threshold amount.
 
@@ -79,11 +92,18 @@ def get_taxon_table_str(observations: [observation.Observation],
         taxon_property_name: Name of which taxon we are working with
         filter_property: The naem of the taxon property to use
         filter_value: The value expected for filter in filter_property
+        filter_place_guess: Partial match filter on place guess
     """
     assert taxon_property_name is not None, "get_taxon_table_str requires taxon_property_name"
     assert taxon_property_name.endswith("_name"), "get_taxon_table_str requires taxon_property_name ending with '_name'"
 
-    taxon_observation_counts_dict = get_property_observation_counts(observations, taxon_property_name, filter_property, filter_value)
+    taxon_observation_counts_dict = get_property_observation_counts(
+        observations,
+        taxon_property_name,
+        filter_property,
+        filter_value,
+        filter_place_guess
+    )
     sorted_taxon_counts = sorted(taxon_observation_counts_dict.items(), key=lambda item: item[1], reverse=True)
 
     table = PrettyTable()
@@ -99,7 +119,7 @@ def get_taxon_table_str(observations: [observation.Observation],
                 [
                     taxon_name,
                     taxon_name_count,
-                    get_property_distinct_species_count(taxon_property_name, taxon_name, observations)
+                    get_property_distinct_species_count(taxon_property_name, taxon_name, observations, filter_place_guess)
                 ]
             )
     return table.get_string()
@@ -117,5 +137,9 @@ def print_family_table(observations: [observation.Observation], threshold: int =
     print(get_taxon_table_str(observations, threshold, "family_name", filter_property, filter_value))
 
 
-def print_order_table(observations: [observation.Observation], threshold: int = 1) -> None:
-    print(get_taxon_table_str(observations, threshold, "order_name"))
+def print_order_table(
+        observations: [observation.Observation],
+        threshold: int = 1,
+        filter_place_guess: str = ""
+) -> None:
+    print(get_taxon_table_str(observations, threshold, "order_name", filter_place_guess=filter_place_guess))

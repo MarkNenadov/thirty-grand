@@ -20,7 +20,8 @@ class Observation:
             scientific_name,
             common_name,
             iconic_taxon_name,
-            taxon_id
+            taxon_id,
+            place_guess
     ):
         self.obs_id = obs_id
         self.observed_on_string = observed_on_string
@@ -33,6 +34,7 @@ class Observation:
         self.common_name = common_name
         self.iconic_taxon_name = iconic_taxon_name
         self.taxon_id = taxon_id
+        self.place_guess = place_guess
         
     def __repr__(self) -> str:
         return (f"Observation(obs_id={self.obs_id}, "
@@ -60,5 +62,6 @@ class Observation:
             scientific_name='' if pd.isna(row['scientific_name']) else row['scientific_name'],
             common_name=row['common_name'],
             iconic_taxon_name=row['iconic_taxon_name'],
-            taxon_id=row['taxon_id']
+            taxon_id=row['taxon_id'],
+            place_guess=row['place_guess']
         )
