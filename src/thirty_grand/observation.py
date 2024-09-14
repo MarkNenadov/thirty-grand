@@ -19,33 +19,34 @@ class Observation:
             family_name,
             scientific_name,
             common_name,
+            place_guess,
             iconic_taxon_name,
             taxon_id,
-            place_guess
     ):
         self.obs_id = obs_id
         self.observed_on_string = observed_on_string
         self.observed_on = observed_on
         self.time_observed_at = time_observed_at
-        self.family_name = family_name
-        self.order_name = order_name
         self.class_name = class_name
+        self.order_name = order_name
+        self.family_name = family_name
         self.scientific_name = scientific_name
         self.common_name = common_name
+        self.place_guess = place_guess
         self.iconic_taxon_name = iconic_taxon_name
         self.taxon_id = taxon_id
-        self.place_guess = place_guess
-        
+
     def __repr__(self) -> str:
         return (f"Observation(obs_id={self.obs_id}, "
                 f"observed_on_string='{self.observed_on_string}', "
                 f"observed_on='{self.observed_on}', "
                 f"time_observed_at='{self.time_observed_at}', "
+                f"class_name='{self.class_name}', "
                 f"order_name='{self.order_name}', "
                 f"family_name='{self.family_name}', "
-                f"class_name='{self.class_name}', "
                 f"scientific_name='{self.scientific_name}', "
                 f"common_name='{self.common_name}', "
+                f"place_guess='{self.place_guess}', "
                 f"iconic_taxon_name='{self.iconic_taxon_name}', "
                 f"taxon_id={self.taxon_id})")
 
@@ -61,7 +62,7 @@ class Observation:
             family_name=row['taxon_family_name'],
             scientific_name='' if pd.isna(row['scientific_name']) else row['scientific_name'],
             common_name=row['common_name'],
+            place_guess=row['place_guess'],
             iconic_taxon_name=row['iconic_taxon_name'],
             taxon_id=row['taxon_id'],
-            place_guess=row['place_guess']
         )

@@ -9,8 +9,12 @@ def observation_data():
         'observed_on_string': '2023-05-25',
         'observed_on': datetime.strptime('2023-05-25', '%Y-%m-%d'),
         'time_observed_at': '2023-05-25T14:30:00Z',
+        'taxon_class_name': 'Class',
+        'taxon_order_name': 'Order',
+        'taxon_family_name': 'Family',
         'scientific_name': 'Panthera leo',
         'common_name': 'Lion',
+        'place_guess': 'Bengal',
         'iconic_taxon_name': 'Mammalia',
         'taxon_id': 12345
     }
@@ -23,10 +27,14 @@ def observation(observation_data):
         data['observed_on_string'],
         data['observed_on'],
         data['time_observed_at'],
+        data['taxon_class_name'],
+        data['taxon_order_name'],
+        data['taxon_family_name'],
         data['scientific_name'],
         data['common_name'],
+        data['place_guess'],
         data['iconic_taxon_name'],
-        data['taxon_id']
+        data['taxon_id'],
     )
 
 
@@ -36,8 +44,12 @@ def test_constructor(observation, observation_data):
     assert observation.observed_on_string == data['observed_on_string']
     assert observation.observed_on == data['observed_on']
     assert observation.time_observed_at == data['time_observed_at']
+    assert observation.class_name == data['taxon_class_name']
+    assert observation.order_name == data['taxon_order_name']
+    assert observation.family_name == data['taxon_family_name']
     assert observation.scientific_name == data['scientific_name']
     assert observation.common_name == data['common_name']
+    assert observation.place_guess == data['place_guess']
     assert observation.iconic_taxon_name == data['iconic_taxon_name']
     assert observation.taxon_id == data['taxon_id']
 
@@ -48,8 +60,12 @@ def test_repr(observation):
         "observed_on_string='2023-05-25', "
         "observed_on='2023-05-25 00:00:00', "
         "time_observed_at='2023-05-25T14:30:00Z', "
+        "class_name='Class', "
+        "order_name='Order', "
+        "family_name='Family', "
         "scientific_name='Panthera leo', "
         "common_name='Lion', "
+        "place_guess='Bengal', "
         "iconic_taxon_name='Mammalia', "
         "taxon_id=12345)"
     )
@@ -63,7 +79,11 @@ def test_create_from_row():
         'observed_on': datetime.strptime('2023-05-26', '%Y-%m-%d'),
         'time_observed_at': '2023-05-26T14:30:00Z',
         'scientific_name': 'Panthera tigris',
+        'taxon_class_name': 'Class',
+        'taxon_order_name': 'Order',
+        'taxon_family_name': 'Family',
         'common_name': 'Tiger',
+        'place_guess': "Bengal",
         'iconic_taxon_name': 'Mammalia',
         'taxon_id': 67890
     }
@@ -74,6 +94,7 @@ def test_create_from_row():
     assert obs.time_observed_at == row['time_observed_at']
     assert obs.scientific_name == row['scientific_name']
     assert obs.common_name == row['common_name']
+    assert obs.place_guess == row['place_guess']
     assert obs.iconic_taxon_name == row['iconic_taxon_name']
     assert obs.taxon_id == row['taxon_id']
 

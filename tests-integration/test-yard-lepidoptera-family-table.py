@@ -8,4 +8,4 @@ all_observations = queries.query_all_observations(data)
 
 print("Mark Nenadov's LaSalle Yard Lepidoptera Family Tally")
 
-print_family_table(all_observations, threshold=1, filter_property="order_name", filter_value="Lepidoptera", filter_place_guess="huron church line")
+print_family_table(all_observations, threshold=1, filter_property="order_name", filter_value="Lepidoptera")

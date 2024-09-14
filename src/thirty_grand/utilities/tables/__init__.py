@@ -3,6 +3,7 @@ from collections import defaultdict
 from prettytable import PrettyTable
 
 from src.thirty_grand import observation
+from thirty_grand.utilities.formatting import format_taxon_name
 
 
 def get_observations_table_str(observations: [observation.Observation]) -> str:
@@ -65,17 +66,22 @@ def get_property_distinct_species_count(
         taxon_property_name: str,
         taxon_name: str,
         observations:[observation.Observation],
-        filter_place_guess: str
+        filter_place_guess: str = ""
 ) -> int:
     distinct_species = set()
     for obs in observations:
         if (filter_place_guess is None or filter_place_guess == "" or (filter_place_guess.lower() in obs.place_guess.lower())):
             taxon_property_value = getattr(obs, taxon_property_name, "")
-            if len(obs.scientific_name.split(" ")) >= 2 and taxon_property_value == taxon_name:
+            if is_probable_species(obs.scientific_name) and taxon_property_value == taxon_name:
                 distinct_species.add(obs.scientific_name)
 
     return len(distinct_species)
 
+
+def is_probable_species(scientific_name: str) -> bool:
+    split_by_species = scientific_name.split(" ")
+
+    return len(split_by_species) >= 2 and len(split_by_species) < 4
 
 def get_taxon_table_str(observations: [observation.Observation],
                         threshold: int,
@@ -109,7 +115,7 @@ def get_taxon_table_str(observations: [observation.Observation],
     table = PrettyTable()
     table.field_names = [
         "Count",
-        taxon_property_name.split("_")[0].capitalize(),
+        format_taxon_name(taxon_property_name),
         "Number of Observations",
         "Distinct Species"
     ]

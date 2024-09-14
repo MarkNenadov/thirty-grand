@@ -2,7 +2,7 @@ import pytest
 from prettytable import PrettyTable
 from unittest.mock import Mock
 from src.thirty_grand import observation
-from src.thirty_grand.utilities import get_observations_table_str
+from thirty_grand.utilities.tables import get_observations_table_str
 
 
 @pytest.fixture
@@ -52,3 +52,6 @@ def test_get_observations_table_str(observations):
 
     result = get_observations_table_str(observations)
     assert result == expected_output
+
+if __name__ == '__main__':
+    pytest.main()

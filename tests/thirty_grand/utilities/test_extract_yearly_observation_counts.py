@@ -18,8 +18,8 @@ def observations():
 
 
 def test_extract_yearly_observation_counts(observations):
-    expected_years = [2023, 2022]
-    expected_counts = [2, 1]
+    expected_years = (2023, 2022)
+    expected_counts = (2, 1)
 
     years, counts = extract_yearly_observation_counts(observations)
 
