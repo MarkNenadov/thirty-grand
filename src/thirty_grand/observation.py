@@ -1,3 +1,4 @@
+import datetime
 from dataclasses import dataclass
 
 import pandas as pd
@@ -11,16 +12,16 @@ class Observation:
     def __init__(
             self,
             obs_id,
-            observed_on_string,
-            observed_on,
-            time_observed_at,
-            class_name,
-            order_name,
-            family_name,
-            scientific_name,
-            common_name,
-            place_guess,
-            iconic_taxon_name,
+            observed_on_string: str,
+            observed_on: str,
+            time_observed_at: str,
+            class_name: str,
+            order_name: str,
+            family_name: str,
+            scientific_name: str,
+            common_name: str,
+            place_guess: str,
+            iconic_taxon_name: str,
             taxon_id,
     ):
         self.obs_id = obs_id
@@ -49,6 +50,9 @@ class Observation:
                 f"place_guess='{self.place_guess}', "
                 f"iconic_taxon_name='{self.iconic_taxon_name}', "
                 f"taxon_id={self.taxon_id})")
+
+    def get_year(self) -> int:
+        return datetime.datetime.strptime(self.observed_on, "%Y-%m-%d").year
 
     @staticmethod
     def create_from_row(row: dict):

@@ -7,7 +7,7 @@ def observation_data():
     return {
         'obs_id': 1,
         'observed_on_string': '2023-05-25',
-        'observed_on': datetime.strptime('2023-05-25', '%Y-%m-%d'),
+        'observed_on': '2023-05-25',
         'time_observed_at': '2023-05-25T14:30:00Z',
         'taxon_class_name': 'Class',
         'taxon_order_name': 'Order',
@@ -54,11 +54,14 @@ def test_constructor(observation, observation_data):
     assert observation.taxon_id == data['taxon_id']
 
 
+def test_get_year(observation):
+    assert observation.get_year() == 2023
+
 def test_repr(observation):
     expected_repr = (
         "Observation(obs_id=1, "
         "observed_on_string='2023-05-25', "
-        "observed_on='2023-05-25 00:00:00', "
+        "observed_on='2023-05-25', "
         "time_observed_at='2023-05-25T14:30:00Z', "
         "class_name='Class', "
         "order_name='Order', "
@@ -76,7 +79,7 @@ def test_create_from_row():
     row = {
         'id': 2,
         'observed_on_string': '2023-05-26',
-        'observed_on': datetime.strptime('2023-05-26', '%Y-%m-%d'),
+        'observed_on': '2023-05-26',
         'time_observed_at': '2023-05-26T14:30:00Z',
         'scientific_name': 'Panthera tigris',
         'taxon_class_name': 'Class',

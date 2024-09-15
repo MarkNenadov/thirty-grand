@@ -12,7 +12,7 @@ def extract_years(observations: [observation.Observation]) -> List[int]:
     Parameters:
         observations: The list of observations.
     """
-    return [datetime.datetime.strptime(obs.observed_on, "%Y-%m-%d").year for obs in observations if obs.observed_on != '']
+    return [obs.get_year() for obs in observations if obs.observed_on != '']
 
 
 def extract_yearly_observation_counts(observations: [observation.Observation]) -> Tuple[List[int], List[int]]:
