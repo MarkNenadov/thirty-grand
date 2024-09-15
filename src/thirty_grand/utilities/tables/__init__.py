@@ -2,11 +2,12 @@ from collections import defaultdict
 
 from prettytable import PrettyTable
 
-from src.thirty_grand import observation
+from thirty_grand.observation import Observation
+from thirty_grand.queries import _name_matches
 from thirty_grand.utilities.formatting import format_taxon_name
 
 
-def get_observations_table_str(observations: [observation.Observation]) -> str:
+def get_observations_table_str(observations: [Observation]) -> str:
     table = PrettyTable()
     table.field_names = [
         "Observation ID",
@@ -65,7 +66,7 @@ def get_property_observation_counts(
 def get_property_distinct_species_count(
         taxon_property_name: str,
         taxon_name: str,
-        observations:[observation.Observation],
+        observations:[Observation],
         filter_place_guess: str = ""
 ) -> int:
     distinct_species = set()
@@ -83,7 +84,7 @@ def _is_probable_species(scientific_name: str) -> bool:
 
     return len(split_by_species) >= 2 and len(split_by_species) < 4
 
-def get_taxon_table_str(observations: [observation.Observation],
+def get_taxon_table_str(observations: [Observation],
                         threshold: int,
                         taxon_property_name: str,
                         filter_property: str = None,
@@ -135,16 +136,48 @@ def get_taxon_table_str(observations: [observation.Observation],
     return table.get_string()
 
 
-def print_observations_table(observations: [observation.Observation]) -> None:
+def print_observations_table(observations: [Observation]) -> None:
     print(get_observations_table_str(observations))
 
 
-def print_class_table(observations: [observation.Observation], threshold: int) -> None:
+def print_class_table(observations: [Observation], threshold: int) -> None:
     print(get_taxon_table_str(observations, threshold, "class_name"))
 
 
+def get_distinct_species_to_common_names(observations: [Observation], taxon_property_name: str, filter_value: str):
+    species_to_common_name = {}
+    for obs in observations:
+        if (_name_matches(filter_value, getattr(obs, taxon_property_name, ""))):
+            if _is_probable_species(obs.scientific_name):
+                species_to_common_name[obs.scientific_name] = obs.common_name
+
+    return species_to_common_name
+
+
+def print_distinct_species_in_taxon(observations: [Observation], taxon_property_name: str, filter_value: str) -> None:
+    species_to_common_name = get_distinct_species_to_common_names(observations, taxon_property_name, filter_value)
+    table = PrettyTable()
+    table.field_names = [
+        "Count",
+        "Species",
+        "Common Name"
+    ]
+
+    count = 0
+    for species, common_name in dict(sorted(species_to_common_name.items())).items():
+        count += 1
+        table.add_row(
+            [
+                count,
+                species,
+                common_name,
+            ]
+        )
+    print(table.get_string())
+
+
 def print_family_table(
-        observations: [observation.Observation],
+        observations: [Observation],
         threshold: int = 1,
         filter_property: str = None,
         filter_value: str = None,
@@ -153,12 +186,12 @@ def print_family_table(
     print(get_taxon_table_str(observations, threshold, "family_name", filter_property, filter_value, filter_place_guess))
 
 
-def print_genera_table(observations: [observation.Observation], threshold: int = 1, filter_property: str = None, filter_value: str = None) -> None:
+def print_genera_table(observations: [Observation], threshold: int = 1, filter_property: str = None, filter_value: str = None) -> None:
     print(get_taxon_table_str(observations, threshold, "family_name", filter_property, filter_value))
 
 
 def print_order_table(
-        observations: [observation.Observation],
+        observations: [Observation],
         threshold: int = 1,
         filter_place_guess: str = ""
 ) -> None:
