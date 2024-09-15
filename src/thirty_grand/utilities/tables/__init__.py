@@ -72,13 +72,13 @@ def get_property_distinct_species_count(
     for obs in observations:
         if (filter_place_guess is None or filter_place_guess == "" or (filter_place_guess.lower() in obs.place_guess.lower())):
             taxon_property_value = getattr(obs, taxon_property_name, "")
-            if is_probable_species(obs.scientific_name) and taxon_property_value == taxon_name:
+            if _is_probable_species(obs.scientific_name) and taxon_property_value == taxon_name:
                 distinct_species.add(obs.scientific_name)
 
     return len(distinct_species)
 
 
-def is_probable_species(scientific_name: str) -> bool:
+def _is_probable_species(scientific_name: str) -> bool:
     split_by_species = scientific_name.split(" ")
 
     return len(split_by_species) >= 2 and len(split_by_species) < 4
