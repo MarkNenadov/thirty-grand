@@ -2,6 +2,7 @@ import datetime
 from dataclasses import dataclass
 
 import pandas as pd
+from pandas.core import series
 
 
 @dataclass
@@ -55,7 +56,7 @@ class Observation:
         return datetime.datetime.strptime(self.observed_on, "%Y-%m-%d").year
 
     @staticmethod
-    def create_from_row(row: dict):
+    def create_from_row(row: series):
         return Observation(
             obs_id=row['id'],
             observed_on_string=row['observed_on_string'],
