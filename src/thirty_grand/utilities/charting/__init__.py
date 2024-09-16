@@ -2,11 +2,11 @@ from typing import List
 
 import matplotlib.pyplot as pyplot
 
-from src.thirty_grand import observation
 from src.thirty_grand.utilities import extract_yearly_observation_counts
+from thirty_grand.observation import Observation
 
 
-def display_yearly_observation_barchart(observations: List[observation.Observation],
+def display_yearly_observation_barchart(observations: List[Observation],
                                         figure_size:tuple[float, float]=(13,7)) -> None:
     """
     Display a bar chart of iNaturalist observation counts per year.

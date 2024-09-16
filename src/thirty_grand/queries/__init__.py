@@ -3,7 +3,7 @@ from typing import Optional
 
 import pandas as pd
 
-from .. import observation
+from ..observation import Observation
 
 
 def _name_matches(partial: Optional[str], full_name: str) -> bool:
@@ -14,7 +14,7 @@ def query_all_observations(
         data: pd.DataFrame,
         scientific_name_partial: Optional[str] = None,
         common_name_partial: Optional[str] = None
-) -> [observation.Observation]:
+) -> [Observation]:
     """
     Query all observations from a DataFrame returned from csv. Optionally, match the given partial
     scientific and common names.
@@ -31,11 +31,11 @@ def query_all_observations(
     for _, row in data.iterrows():
         if _name_matches(common_name_partial, row['common_name']) and \
                 _name_matches(scientific_name_partial, row['scientific_name']):
-            observations.append(observation.Observation.create_from_row(row))
+            observations.append(Observation.create_from_row(row))
     return observations
 
 
-def random_sample(data: pd.DataFrame, count: int):
+def random_sample(data: pd.DataFrame, count: int) -> [Observation]:
     """
     Retrieve a random sample of observations from the DataFrame.
 
@@ -44,6 +44,6 @@ def random_sample(data: pd.DataFrame, count: int):
         count (int): The number of random observations to retrieve.
 
     Returns:
-        List[observation.Observation]: A random sample of Observation objects.
+        List[Observation]: A random sample of Observation objects.
     """
     return random.sample(query_all_observations(data), count)

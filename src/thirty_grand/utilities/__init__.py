@@ -2,10 +2,10 @@ from collections import Counter
 import datetime
 from typing import List, Tuple
 
-from src.thirty_grand import observation
+from thirty_grand.observation import Observation
 
 
-def extract_years(observations: [observation.Observation]) -> List[int]:
+def extract_years(observations: [Observation]) -> List[int]:
     """
     Extract year ints from a list of observations.
 
@@ -15,7 +15,7 @@ def extract_years(observations: [observation.Observation]) -> List[int]:
     return [obs.get_year() for obs in observations if obs.observed_on != '']
 
 
-def extract_yearly_observation_counts(observations: [observation.Observation]) -> Tuple[List[int], List[int]]:
+def extract_yearly_observation_counts(observations: [Observation]) -> Tuple[List[int], List[int]]:
     """
     Extract a tuple of years with their counts from a list of observations.
 
