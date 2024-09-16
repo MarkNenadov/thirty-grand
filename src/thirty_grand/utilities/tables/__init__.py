@@ -4,6 +4,7 @@ from prettytable import PrettyTable
 
 from thirty_grand.observation import Observation
 from thirty_grand.queries import _name_matches
+from thirty_grand.utilities import is_probable_species
 from thirty_grand.utilities.formatting import format_taxon_name
 
 
@@ -73,16 +74,10 @@ def get_property_distinct_species_count(
     for obs in observations:
         if (filter_place_guess is None or filter_place_guess == "" or (filter_place_guess.lower() in obs.place_guess.lower())):
             taxon_property_value = getattr(obs, taxon_property_name, "")
-            if _is_probable_species(obs.scientific_name) and taxon_property_value == taxon_name:
+            if is_probable_species(obs.scientific_name) and taxon_property_value == taxon_name:
                 distinct_species.add(obs.scientific_name)
 
     return len(distinct_species)
-
-
-def _is_probable_species(scientific_name: str) -> bool:
-    split_by_species = scientific_name.split(" ")
-
-    return len(split_by_species) >= 2 and len(split_by_species) < 4
 
 def get_taxon_table_str(observations: [Observation],
                         threshold: int,
@@ -148,7 +143,7 @@ def get_distinct_species_to_common_names(observations: [Observation], taxon_prop
     species_to_common_name = {}
     for obs in observations:
         if (_name_matches(filter_value, getattr(obs, taxon_property_name, ""))):
-            if _is_probable_species(obs.scientific_name):
+            if is_probable_species(obs.scientific_name):
                 species_to_common_name[obs.scientific_name] = obs.common_name
 
     return species_to_common_name
