@@ -139,7 +139,7 @@ def print_class_table(observations: [Observation], threshold: int) -> None:
     print(get_taxon_table_str(observations, threshold, "class_name"))
 
 
-def get_distinct_species_to_common_names(observations: [Observation], taxon_property_name: str, filter_value: str):
+def _get_distinct_species_to_common_names(observations: [Observation], taxon_property_name: str, filter_value: str):
     species_to_common_name = {}
     for obs in observations:
         if (_name_matches(filter_value, getattr(obs, taxon_property_name, ""))):
@@ -150,7 +150,7 @@ def get_distinct_species_to_common_names(observations: [Observation], taxon_prop
 
 
 def print_distinct_species_in_taxon(observations: [Observation], taxon_property_name: str, filter_value: str) -> None:
-    species_to_common_name = get_distinct_species_to_common_names(observations, taxon_property_name, filter_value)
+    species_to_common_name = _get_distinct_species_to_common_names(observations, taxon_property_name, filter_value)
     table = PrettyTable()
     table.field_names = [
         "Count",

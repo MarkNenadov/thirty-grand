@@ -25,5 +25,7 @@ Tables
 - get_taxon_table_str (function)
 - print_family_table (function)
 - print_class_table (function)
+- print_genera_table (function)
 - print_order_table (function)
+- print_distinct_species_in_taxon (function)
 
