@@ -59,7 +59,12 @@ def get_property_observation_counts(
         property_value = getattr(obs, property_name, "")
         filter_value = getattr(obs, filter_property, "") if filter_property and filter_by_value else ""
 
-        if property_value != "" and (filter_by_value is None or filter_value == filter_by_value) and (filter_place_guess is None or filter_place_guess == "" or (filter_place_guess.lower() in obs.place_guess.lower())):
+        if (
+            property_value != "" and
+            (filter_by_value is None or filter_value == filter_by_value) and
+            (filter_place_guess is None or filter_place_guess == "" or
+            (filter_place_guess.lower() in obs.place_guess.lower()))
+        ):
             property_counts[property_value] += 1
     return dict(property_counts)
 
@@ -72,7 +77,11 @@ def get_property_distinct_species_count(
 ) -> int:
     distinct_species = set()
     for obs in observations:
-        if (filter_place_guess is None or filter_place_guess == "" or (filter_place_guess.lower() in obs.place_guess.lower())):
+        if (
+            filter_place_guess is None or
+            filter_place_guess == "" or
+            (filter_place_guess.lower() in obs.place_guess.lower())
+        ):
             taxon_property_value = getattr(obs, taxon_property_name, "")
             if is_probable_species(obs.scientific_name) and taxon_property_value == taxon_name:
                 distinct_species.add(obs.scientific_name)
