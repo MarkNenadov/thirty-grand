@@ -3,6 +3,11 @@ from typing import List, Tuple
 
 from thirty_grand.observation import Observation
 
+
+def is_probable_species(scientific_name: str) -> bool:
+    split_by_species = scientific_name.split(" ")
+    return len(split_by_species) >= 2 and len(split_by_species) < 4
+
 def extract_years(observations: [Observation]) -> List[int]:
     """
     Extract year ints from a list of observations.
