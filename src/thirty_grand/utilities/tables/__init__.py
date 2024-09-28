@@ -18,7 +18,6 @@ def get_observations_table_str(observations: [Observation]) -> str:
         "Scientific Name",
         "Common Name",
         "Iconic Taxon Name",
-        "Taxon ID"
     ]
 
     for obs in observations:
@@ -31,7 +30,6 @@ def get_observations_table_str(observations: [Observation]) -> str:
                 obs.scientific_name,
                 obs.common_name,
                 obs.iconic_taxon_name,
-                obs.taxon_id
             ]
         )
     return table.get_string()

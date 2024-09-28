@@ -40,13 +40,12 @@ def test_get_observations_table_str(observations):
         "Scientific Name",
         "Common Name",
         "Iconic Taxon Name",
-        "Taxon ID"
     ]
     expected_table.add_row([
-        1, "2023-05-25", "2023-05-25", "10:00", "Panthera leo", "Lion", "Mammalia", 1234
+        1, "2023-05-25", "2023-05-25", "10:00", "Panthera leo", "Lion", "Mammalia"
     ])
     expected_table.add_row([
-        2, "2023-05-26", "2023-05-26", "12:00", "Elephas maximus", "Elephant", "Mammalia", 5678
+        2, "2023-05-26", "2023-05-26", "12:00", "Elephas maximus", "Elephant", "Mammalia"
     ])
     expected_output = expected_table.get_string()
 
