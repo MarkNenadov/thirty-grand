@@ -10,7 +10,7 @@ from thirty_grand.utilities.formatting import format_taxon_name
 
 def get_observations_table_str(
         observations: [Observation],
-        display_configuration = (
+        display_configuration: tuple[tuple[str, str], ...] = (
             ('Observation ID', 'obs_id'),
             ("Observed On", 'observed_on'),
             ("Time Observed At", 'time_observed_at'),
@@ -132,8 +132,18 @@ def get_taxon_table_str(observations: [Observation],
     return table.get_string()
 
 
-def print_observations_table(observations: [Observation]) -> None:
-    print(get_observations_table_str(observations))
+def print_observations_table(
+        observations: [Observation],
+        display_configuration: tuple[tuple[str, str], ...] = (
+            ('Observation ID', 'obs_id'),
+            ("Observed On", 'observed_on'),
+            ("Time Observed At", 'time_observed_at'),
+            ("Scientific Name", 'scientific_name'),
+            ("Common Name", 'common_name'),
+            ("Iconic Taxon Name", 'iconic_taxon_name')
+        )
+) -> None:
+    print(get_observations_table_str(observations, display_configuration))
 
 
 def print_class_table(observations: [Observation], threshold: int) -> None:
