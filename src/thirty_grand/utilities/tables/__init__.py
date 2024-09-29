@@ -8,29 +8,23 @@ from thirty_grand.utilities import is_probable_species
 from thirty_grand.utilities.formatting import format_taxon_name
 
 
-def get_observations_table_str(observations: [Observation]) -> str:
+def get_observations_table_str(
+        observations: [Observation],
+        display_configuration = (
+            ('Observation ID', 'obs_id'),
+            ("Observed On", 'observed_on'),
+            ("Time Observed At", 'time_observed_at'),
+            ("Scientific Name", 'scientific_name'),
+            ("Common Name", 'common_name'),
+            ("Iconic Taxon Name", 'iconic_taxon_name')
+        )
+) -> str:
     table = PrettyTable()
-    table.field_names = [
-        "Observation ID",
-        "Observed On String",
-        "Observed On",
-        "Time Observed At",
-        "Scientific Name",
-        "Common Name",
-        "Iconic Taxon Name",
-    ]
+    table.field_names = [item[0] for item in display_configuration]
 
     for obs in observations:
         table.add_row(
-            [
-                obs.obs_id,
-                obs.observed_on_string,
-                obs.observed_on,
-                obs.time_observed_at,
-                obs.scientific_name,
-                obs.common_name,
-                obs.iconic_taxon_name,
-            ]
+           [getattr(obs, item[1], '') for item in display_configuration]
         )
     return table.get_string()
 
