@@ -23,7 +23,10 @@ class Observation:
             common_name: str,
             place_guess: str,
             iconic_taxon_name: str,
-            taxon_id,
+            taxon_id: str,
+            longitude: str,
+            latitude: str,
+            image_url: str,
     ):
         self.obs_id = obs_id
         self.observed_on_string = observed_on_string
@@ -37,6 +40,9 @@ class Observation:
         self.place_guess = place_guess
         self.iconic_taxon_name = iconic_taxon_name
         self.taxon_id = taxon_id
+        self.longitude = longitude
+        self.latitude = latitude
+        self.image_url = image_url
 
     def __repr__(self) -> str:
         return (f"Observation(obs_id={self.obs_id}, "
@@ -70,4 +76,7 @@ class Observation:
             place_guess=row['place_guess'],
             iconic_taxon_name=row['iconic_taxon_name'],
             taxon_id=row['taxon_id'],
+            longitude=row['longitude'],
+            latitude=row['latitude'],
+            image_url=row['image_url'],
         )

@@ -35,6 +35,9 @@ def observation(observation_data):
         data['place_guess'],
         data['iconic_taxon_name'],
         data['taxon_id'],
+        data['longitude'],
+        data['latitude'],
+        data['image_url'],
     )
 
 
@@ -52,6 +55,9 @@ def test_constructor(observation, observation_data):
     assert observation.place_guess == data['place_guess']
     assert observation.iconic_taxon_name == data['iconic_taxon_name']
     assert observation.taxon_id == data['taxon_id']
+    assert observation.longitude == data['longitude']
+    assert observation.latitude == data['latitude']
+    assert observation.image_url == data['image_url']
 
 
 def test_get_year(observation):
@@ -88,7 +94,10 @@ def test_create_from_row():
         'common_name': 'Tiger',
         'place_guess': "Bengal",
         'iconic_taxon_name': 'Mammalia',
-        'taxon_id': 67890
+        'taxon_id': 67890,
+        'longitude':"34343",
+        'latitude': "-34343",
+        'image_url': 'https://www.test.com/',
     }
     obs = Observation.create_from_row(row)
     assert obs.obs_id == row['id']
