@@ -2,6 +2,8 @@ import random
 from typing import Optional
 
 import pandas as pd
+import requests
+import base64
 
 from ..observation import Observation
 
@@ -47,3 +49,9 @@ def random_sample(data: pd.DataFrame, count: int) -> [Observation]:
         List[Observation]: A random sample of Observation objects.
     """
     return random.sample(query_all_observations(data), count)
+
+
+def fetch_image(observation: Observation):
+    assert observation is not None
+    image_url = observation.image_url.replace("medium", "large")
+    return base64.b64encode(requests.get(image_url).content)
