@@ -15,10 +15,7 @@ def display_yearly_observation_barchart(observations: List[Observation],
         observations: A list of observations from inaturalist csv export.
         figure_size: Size of the chart, x, y
     """
-    if not observations:
-        print("No observations to display.")
-        return
-
+    assert len(observations) > 0
     years, numbers = extract_yearly_observation_counts(observations)
 
     pyplot.figure(figsize=figure_size)

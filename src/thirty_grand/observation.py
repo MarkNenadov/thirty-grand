@@ -63,6 +63,7 @@ class Observation:
 
     @staticmethod
     def create_from_row(row: series):
+        assert row is not None
         return Observation(
             obs_id=row['id'],
             observed_on_string=row['observed_on_string'],
