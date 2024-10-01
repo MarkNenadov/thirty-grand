@@ -27,7 +27,7 @@ class Observation:
             longitude: str,
             latitude: str,
             image_url: str,
-    ):
+    ) -> None:
         self.obs_id = obs_id
         self.observed_on_string = observed_on_string
         self.observed_on = observed_on
@@ -62,7 +62,7 @@ class Observation:
         return datetime.datetime.strptime(self.observed_on, "%Y-%m-%d").year
 
     @staticmethod
-    def create_from_row(row: series):
+    def create_from_row(row: series) -> object:
         assert row is not None
         return Observation(
             obs_id=row['id'],

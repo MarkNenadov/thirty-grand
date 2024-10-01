@@ -24,13 +24,13 @@ def observations():
     return [observation1, observation2, observation3]
 
 
-def test_get_property_distinct_species_count_when_one(observations):
+def test_get_property_distinct_species_count_when_one(observations) -> None:
     count = get_property_distinct_species_count("order_name", "Lepidoptera", observations)
 
     assert count == 1
 
 
-def test_get_property_distinct_species_count_when_none(observations):
+def test_get_property_distinct_species_count_when_none(observations) -> None:
     count = get_property_distinct_species_count("order_name", "Coleoptera", observations)
 
     assert count == 0

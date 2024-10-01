@@ -3,7 +3,7 @@ from datetime import datetime
 from src.thirty_grand.observation import Observation
 
 @pytest.fixture
-def observation_data():
+def observation_data() -> object:
     return {
         'obs_id': 1,
         'observed_on_string': '2023-05-25',
@@ -20,7 +20,7 @@ def observation_data():
     }
 
 @pytest.fixture
-def observation(observation_data):
+def observation(observation_data) -> Observation:
     data = observation_data
     return Observation(
         data['obs_id'],
@@ -41,7 +41,7 @@ def observation(observation_data):
     )
 
 
-def test_constructor(observation, observation_data):
+def test_constructor(observation, observation_data) -> None:
     data = observation_data
     assert observation.obs_id == data['obs_id']
     assert observation.observed_on_string == data['observed_on_string']
@@ -60,10 +60,10 @@ def test_constructor(observation, observation_data):
     assert observation.image_url == data['image_url']
 
 
-def test_get_year(observation):
+def test_get_year(observation) -> None:
     assert observation.get_year() == 2023
 
-def test_repr(observation):
+def test_repr(observation) -> None:
     expected_repr = (
         "Observation(obs_id=1, "
         "observed_on_string='2023-05-25', "
@@ -81,7 +81,7 @@ def test_repr(observation):
     assert repr(observation) == expected_repr
 
 
-def test_create_from_row():
+def test_create_from_row() -> None:
     row = {
         'id': 2,
         'observed_on_string': '2023-05-26',

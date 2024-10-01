@@ -1,13 +1,14 @@
 import pytest
 from prettytable import PrettyTable
 from unittest.mock import Mock
-from src.thirty_grand import observation
+
+from thirty_grand.observation import Observation
 from thirty_grand.utilities.tables import get_observations_table_str
 
 
 @pytest.fixture
-def observations():
-    observation1 = Mock(spec=observation.Observation)
+def observations() -> [Observation]:
+    observation1 = Mock(spec=Observation)
     observation1.obs_id = 1
     observation1.observed_on_string = "2023-05-25"
     observation1.observed_on = "2023-05-25"
@@ -17,7 +18,7 @@ def observations():
     observation1.iconic_taxon_name = "Mammalia"
     observation1.taxon_id = 1234
 
-    observation2 = Mock(spec=observation.Observation)
+    observation2 = Mock(spec=Observation)
     observation2.obs_id = 2
     observation2.observed_on_string = "2023-05-26"
     observation2.observed_on = "2023-05-26"
@@ -30,7 +31,7 @@ def observations():
     return [observation1, observation2]
 
 
-def test_get_observations_table_str(observations):
+def test_get_observations_table_str(observations) -> None:
     expected_table = PrettyTable()
     expected_table.field_names = [
         "Observation ID",
@@ -51,6 +52,7 @@ def test_get_observations_table_str(observations):
 
     result = get_observations_table_str(observations)
     assert result == expected_output
+
 
 if __name__ == '__main__':
     pytest.main()

@@ -93,7 +93,7 @@ def get_taxon_table_str(observations: [Observation],
                         taxon_property_name: str,
                         filter_property: str = None,
                         filter_value: str = None,
-                        filter_place_guess: str = None):
+                        filter_place_guess: str = None) -> str:
     """
     Get table of observations per given Taxon with a threshold amount.
 
@@ -162,11 +162,11 @@ def print_class_table(observations: [Observation], threshold: int) -> None:
     print(get_taxon_table_str(observations, threshold, "class_name"))
 
 
-def _get_distinct_species_to_common_names(observations: [Observation], taxon_property_name: str, filter_value: str):
+def _get_distinct_species_to_common_names(observations: [Observation], taxon_property_name: str, filter_value: str) -> dict:
     assert len(observations) > 0
     species_to_common_name = {}
     for obs in observations:
-        if (_name_matches(filter_value, getattr(obs, taxon_property_name, ""))):
+        if _name_matches(filter_value, getattr(obs, taxon_property_name, "")):
             if is_probable_species(obs.scientific_name):
                 species_to_common_name[obs.scientific_name] = obs.common_name
 
