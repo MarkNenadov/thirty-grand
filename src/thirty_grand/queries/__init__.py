@@ -29,6 +29,8 @@ def query_all_observations(
     Returns:
         List[observation.Observation]: A list of Observation objects that match the given partial names.
     """
+    assert data is not None
+
     observations = []
     for _, row in data.iterrows():
         if _name_matches(common_name_partial, row['common_name']) and \
@@ -48,6 +50,9 @@ def random_sample(data: pd.DataFrame, count: int) -> [Observation]:
     Returns:
         List[Observation]: A random sample of Observation objects.
     """
+    assert data is not None
+    assert count > 0
+
     return random.sample(query_all_observations(data), count)
 
 

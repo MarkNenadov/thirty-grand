@@ -19,6 +19,7 @@ def get_observations_table_str(
             ("Iconic Taxon Name", 'iconic_taxon_name')
         )
 ) -> str:
+    assert len(observations) > 0
     table = PrettyTable()
     table.field_names = [item[0] for item in display_configuration]
 
@@ -30,7 +31,8 @@ def get_observations_table_str(
 
 
 def get_property_observation_counts(
-        observations, property_name,
+        observations: [Observation],
+        property_name,
         filter_property = None,
         filter_by_value = None,
         filter_place_guess: str = None
@@ -46,6 +48,9 @@ def get_property_observation_counts(
         filter_place_guess: partial match filter on place guess
 
     """
+    assert len(observations) > 0
+    assert property_name is not None
+    assert property_name != ""
     property_counts = defaultdict(int)
     for obs in observations:
         property_value = getattr(obs, property_name, "")
@@ -67,6 +72,7 @@ def get_property_distinct_species_count(
         observations:[Observation],
         filter_place_guess: str = ""
 ) -> int:
+    assert len(observations) > 0
     distinct_species = set()
     for obs in observations:
         if (
@@ -79,6 +85,7 @@ def get_property_distinct_species_count(
                 distinct_species.add(obs.scientific_name)
 
     return len(distinct_species)
+
 
 def get_taxon_table_str(observations: [Observation],
                         threshold: int,
@@ -97,6 +104,7 @@ def get_taxon_table_str(observations: [Observation],
         filter_value: The value expected for filter in filter_property
         filter_place_guess: Partial match filter on place guess
     """
+    assert len(observations) > 0
     assert taxon_property_name is not None, "get_taxon_table_str requires taxon_property_name"
     assert taxon_property_name.endswith("_name"), "get_taxon_table_str requires taxon_property_name ending with '_name'"
 
@@ -143,14 +151,17 @@ def print_observations_table(
             ("Iconic Taxon Name", 'iconic_taxon_name')
         )
 ) -> None:
+    assert len(observations) > 0
     print(get_observations_table_str(observations, display_configuration))
 
 
 def print_class_table(observations: [Observation], threshold: int) -> None:
+    assert len(observations) > 0
     print(get_taxon_table_str(observations, threshold, "class_name"))
 
 
 def _get_distinct_species_to_common_names(observations: [Observation], taxon_property_name: str, filter_value: str):
+    assert len(observations) > 0
     species_to_common_name = {}
     for obs in observations:
         if (_name_matches(filter_value, getattr(obs, taxon_property_name, ""))):
@@ -161,6 +172,7 @@ def _get_distinct_species_to_common_names(observations: [Observation], taxon_pro
 
 
 def print_distinct_species_in_taxon(observations: [Observation], taxon_property_name: str, filter_value: str) -> None:
+    assert len(observations) > 0
     species_to_common_name = _get_distinct_species_to_common_names(observations, taxon_property_name, filter_value)
     table = PrettyTable()
     table.field_names = [
@@ -189,10 +201,12 @@ def print_family_table(
         filter_value: str = None,
         filter_place_guess: str = None,
 ) -> None:
+    assert len(observations) > 0
     print(get_taxon_table_str(observations, threshold, "family_name", filter_property, filter_value, filter_place_guess))
 
 
 def print_genera_table(observations: [Observation], threshold: int = 1, filter_property: str = None, filter_value: str = None) -> None:
+    assert len(observations) > 0
     print(get_taxon_table_str(observations, threshold, "family_name", filter_property, filter_value))
 
 
@@ -201,4 +215,5 @@ def print_order_table(
         threshold: int = 1,
         filter_place_guess: str = ""
 ) -> None:
+    assert len(observations) > 0
     print(get_taxon_table_str(observations, threshold, "order_name", filter_place_guess=filter_place_guess))

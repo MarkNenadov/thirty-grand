@@ -8,4 +8,7 @@ def read_csv(file_path: str) -> pd.DataFrame:
     Parameters:
         file_path: Full path to CSV file
     """
+    assert file_path is not None
+    assert file_path != ""
+    
     return pd.read_csv(file_path, low_memory=False).fillna('')
