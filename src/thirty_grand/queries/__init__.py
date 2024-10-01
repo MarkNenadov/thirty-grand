@@ -51,7 +51,12 @@ def random_sample(data: pd.DataFrame, count: int) -> [Observation]:
     return random.sample(query_all_observations(data), count)
 
 
-def fetch_image(observation: Observation):
+def fetch_image(observation: Observation) -> bytes:
     assert observation is not None
+    assert observation.image_url is not None
+    assert observation.image_url != ""
+
     image_url = observation.image_url.replace("medium", "large")
-    return base64.b64encode(requests.get(image_url).content)
+
+    response = requests.get(image_url)
+    return base64.b64encode(response.content)
