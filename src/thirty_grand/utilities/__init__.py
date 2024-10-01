@@ -5,7 +5,7 @@ from thirty_grand.observation import Observation
 
 
 def is_probable_species(scientific_name: str) -> bool:
-    if (scientific_name is None):
+    if scientific_name is None:
         return False
     split_by_species = scientific_name.split(" ")
     return len(split_by_species) >= 2 and len(split_by_species) < 4

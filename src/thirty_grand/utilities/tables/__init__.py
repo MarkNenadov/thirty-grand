@@ -20,6 +20,7 @@ def get_observations_table_str(
         )
 ) -> str:
     assert len(observations) > 0
+    assert len(display_configuration) > 0
     table = PrettyTable()
     table.field_names = [item[0] for item in display_configuration]
 
@@ -152,6 +153,7 @@ def print_observations_table(
         )
 ) -> None:
     assert len(observations) > 0
+    assert len(display_configuration) > 0
     print(get_observations_table_str(observations, display_configuration))
 
 

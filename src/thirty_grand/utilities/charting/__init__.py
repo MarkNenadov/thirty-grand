@@ -16,6 +16,8 @@ def display_yearly_observation_barchart(observations: List[Observation],
         figure_size: Size of the chart, x, y
     """
     assert len(observations) > 0
+    assert figure_size is not None
+    assert len(figure_size) == 2
     years, numbers = extract_yearly_observation_counts(observations)
 
     pyplot.figure(figsize=figure_size)
