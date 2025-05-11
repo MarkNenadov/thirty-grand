@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "thirty-grand"
 version = "0.1.0"
-description = "tools for my 30,000 wildlife obervations"
+description = "Data analysis tools for my first 30,000 wildlife observations from iNaturalist"
 authors = ["Mark Nenadov <marknenadov@gmail.com>"]
 license = "LGPL"
 readme = "README.md"
@@ -12,7 +12,6 @@ prettytable = "^3.11.0"
 pandas = "^2.2.3"
 pytest = "^8.3.3"
 matplotlib = "^3.9.2"
-
 
 [build-system]
 requires = ["poetry-core"]

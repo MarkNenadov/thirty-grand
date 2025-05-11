@@ -1,12 +1,50 @@
-# thirty-grand
+# Thirty Grand
 
-## Introduction
+A data analysis and visualization tool for my first 30,000 wildlife observations from iNaturalist. 
 
-Some tools for exploring and visualizing my 30,000 observations of animals and plants on iNaturalist. Utilizing Python, pandas, and matplotlib.
+## 📝 License
 
-You can see a (work in progress) report on these 30,000 observation with many photos [here](https://docs.google.com/document/d/19-Nd1FMf-i1crleeBk0qfocPLEZFZPEB0-CNjl1a2Ac/edit?usp=sharing).
+This project is licensed under the LGPL License - see the [LICENSE](LICENSE) file for details.
 
-Mark Nenadov (2024)
+## 👤 Author
+
+Mark Nenadov (2024/2025)
+
+## 🔗 Links
+
+- [iNaturalist Observations Report](https://docs.google.com/document/d/19-Nd1FMf-i1crleeBk0qfocPLEZFZPEB0-CNjl1a2Ac/edit?usp=sharing)
+
+## 📋 Requirements
+
+- Python 3.12+
+- Poetry for dependency management
+
+## 🛠️ Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/thirty-grand.git
+cd thirty-grand
+
+# Install dependencies using Poetry
+poetry install
+```
+
+## 🏗️ Project Structure
+
+```
+thirty-grand/
+├── src/
+│   ├── thirty_grand/
+│   │   ├── core/           # Core business logic
+│   │   ├── data/          # Data models and processing
+│   │   ├── visualization/ # Visualization components
+│   │   └── cli/           # Command-line interface
+│   └── tests/             # Test suite
+├── data/                  # Data files
+├── scripts/              # Utility scripts
+└── docs/                 # Documentation
+```
 
 ## Module Structure
 
@@ -29,3 +67,8 @@ Tables
 - print_order_table (function)
 - print_distinct_species_in_taxon (function)
 
+### Running Tests
+
+```bash
+poetry run pytest
+```
