@@ -1,6 +1,6 @@
 import pytest
 from unittest.mock import Mock
-from src.thirty_grand import observation
+from thirty_grand import observation
 from thirty_grand.utilities.tables import get_property_distinct_species_count
 
 

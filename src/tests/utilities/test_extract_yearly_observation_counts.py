@@ -1,6 +1,6 @@
 import pytest
 from unittest.mock import Mock
-from src.thirty_grand.utilities import extract_yearly_observation_counts
+from thirty_grand.utilities import extract_yearly_observation_counts
 from thirty_grand.observation import Observation
 
 
