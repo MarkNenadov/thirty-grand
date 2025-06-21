@@ -35,7 +35,6 @@ def test_get_observations_table_str(observations) -> None:
     expected_table = PrettyTable()
     expected_table.field_names = [
         "Observation ID",
-        "Observed On String",
         "Observed On",
         "Time Observed At",
         "Scientific Name",
@@ -43,10 +42,10 @@ def test_get_observations_table_str(observations) -> None:
         "Iconic Taxon Name",
     ]
     expected_table.add_row([
-        1, "2023-05-25", "2023-05-25", "10:00", "Panthera leo", "Lion", "Mammalia"
+        1, "2023-05-25", "10:00", "Panthera leo", "Lion", "Mammalia"
     ])
     expected_table.add_row([
-        2, "2023-05-26", "2023-05-26", "12:00", "Elephas maximus", "Elephant", "Mammalia"
+        2, "2023-05-26", "12:00", "Elephas maximus", "Elephant", "Mammalia"
     ])
     expected_output = expected_table.get_string()
 

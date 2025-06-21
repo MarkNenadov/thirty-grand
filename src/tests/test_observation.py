@@ -16,7 +16,10 @@ def observation_data() -> object:
         'common_name': 'Lion',
         'place_guess': 'Bengal',
         'iconic_taxon_name': 'Mammalia',
-        'taxon_id': 12345
+        'taxon_id': 12345,
+        'longitude': '0.0',
+        'latitude': '0.0',
+        'image_url': 'https://example.com/image.jpg',
     }
 
 @pytest.fixture
