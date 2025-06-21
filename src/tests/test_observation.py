@@ -1,6 +1,6 @@
 import pytest
 from datetime import datetime
-from src.thirty_grand.observation import Observation
+from thirty_grand.observation import Observation
 
 @pytest.fixture
 def observation_data() -> object:
