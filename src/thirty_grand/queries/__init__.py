@@ -1,5 +1,4 @@
 import random
-from typing import Optional
 
 import pandas as pd
 import requests
@@ -8,15 +7,15 @@ import base64
 from ..observation import Observation
 
 
-def _name_matches(partial: Optional[str], full_name: str) -> bool:
+def _name_matches(partial: str | None, full_name: str) -> bool:
     return partial is None or (isinstance(full_name, str) and partial.lower() in full_name.lower())
 
 
 def query_all_observations(
         data: pd.DataFrame,
-        scientific_name_partial: Optional[str] = None,
-        common_name_partial: Optional[str] = None
-) -> [Observation]:
+        scientific_name_partial: str | None = None,
+        common_name_partial: str | None = None,
+) -> list[Observation]:
     """
     Query all observations from a DataFrame returned from csv. Optionally, match the given partial
     scientific and common names.
@@ -39,7 +38,7 @@ def query_all_observations(
     return observations
 
 
-def random_sample(data: pd.DataFrame, count: int) -> [Observation]:
+def random_sample(data: pd.DataFrame, count: int) -> list[Observation]:
     """
     Retrieve a random sample of observations from the DataFrame.
 

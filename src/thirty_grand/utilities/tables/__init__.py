@@ -6,7 +6,6 @@ including taxonomic summaries and observation details.
 """
 
 from collections import defaultdict
-from typing import Dict, List, Optional
 
 from prettytable import PrettyTable
 
@@ -17,7 +16,7 @@ from thirty_grand.utilities.formatting import format_taxon_name
 
 
 def get_observations_table_str(
-        observations: List[Observation],
+        observations: list[Observation],
         display_configuration: tuple[tuple[str, str], ...] = (
             ('Observation ID', 'obs_id'),
             ("Observed On", 'observed_on'),
@@ -55,12 +54,12 @@ def get_observations_table_str(
 
 
 def get_property_observation_counts(
-    observations: List[Observation],
+    observations: list[Observation],
     property_name: str,
-    filter_property: Optional[str] = None,
-    filter_by_value: Optional[str] = None,
-    filter_place_guess: Optional[str] = None
-) -> Dict[str, int]:
+    filter_property: str | None = None,
+    filter_by_value: str | None = None,
+    filter_place_guess: str | None = None
+) -> dict[str, int]:
     """
     Count occurrences of a property within observations with optional filtering.
     
@@ -72,7 +71,7 @@ def get_property_observation_counts(
         filter_place_guess: Optional place name to filter by
         
     Returns:
-        Dict[str, int]: Dictionary mapping property values to their counts
+        dict[str, int]: Dictionary mapping property values to their counts
         
     Raises:
         ValueError: If observations list is empty or property_name is invalid
@@ -102,7 +101,7 @@ def get_property_observation_counts(
 def get_property_distinct_species_count(
     taxon_property_name: str,
     taxon_name: str,
-    observations: List[Observation],
+    observations: list[Observation],
     filter_place_guess: str = ""
 ) -> int:
     """
@@ -138,12 +137,12 @@ def get_property_distinct_species_count(
 
 
 def get_taxon_table_str(
-    observations: List[Observation],
+    observations: list[Observation],
     threshold: int,
     taxon_property_name: str,
-    filter_property: Optional[str] = None,
-    filter_value: Optional[str] = None,
-    filter_place_guess: Optional[str] = None
+    filter_property: str | None = None,
+    filter_value: str | None = None,
+    filter_place_guess: str | None = None
 ) -> str:
     """
     Generate a formatted table of taxon observations.
@@ -211,7 +210,7 @@ def get_taxon_table_str(
 
 
 def print_observations_table(
-    observations: List[Observation],
+    observations: list[Observation],
     display_configuration: tuple[tuple[str, str], ...] = (
         ('Observation ID', 'obs_id'),
         ("Observed On", 'observed_on'),
@@ -231,7 +230,7 @@ def print_observations_table(
     print(get_observations_table_str(observations, display_configuration))
 
 
-def print_class_table(observations: List[Observation], threshold: int) -> None:
+def print_class_table(observations: list[Observation], threshold: int) -> None:
     """
     Print a formatted table of class-level observations.
     
@@ -243,11 +242,11 @@ def print_class_table(observations: List[Observation], threshold: int) -> None:
 
 
 def print_family_table(
-    observations: List[Observation],
+    observations: list[Observation],
     threshold: int = 1,
-    filter_property: Optional[str] = None,
-    filter_value: Optional[str] = None,
-    filter_place_guess: Optional[str] = None
+    filter_property: str | None = None,
+    filter_value: str | None = None,
+    filter_place_guess: str | None = None
 ) -> None:
     """
     Print a formatted table of family-level observations.
@@ -270,10 +269,10 @@ def print_family_table(
 
 
 def print_genera_table(
-    observations: List[Observation],
+    observations: list[Observation],
     threshold: int = 1,
-    filter_property: Optional[str] = None,
-    filter_value: Optional[str] = None
+    filter_property: str | None = None,
+    filter_value: str | None = None
 ) -> None:
     """
     Print a formatted table of genus-level observations.
@@ -294,7 +293,7 @@ def print_genera_table(
 
 
 def print_order_table(
-    observations: List[Observation],
+    observations: list[Observation],
     threshold: int = 1,
     filter_place_guess: str = ""
 ) -> None:
@@ -314,7 +313,7 @@ def print_order_table(
     ))
 
 
-def _get_distinct_species_to_common_names(observations: [Observation], taxon_property_name: str, filter_value: str) -> dict:
+def _get_distinct_species_to_common_names(observations: list[Observation], taxon_property_name: str, filter_value: str) -> dict[str, str]:
     assert len(observations) > 0
     species_to_common_name = {}
     for obs in observations:
@@ -325,7 +324,7 @@ def _get_distinct_species_to_common_names(observations: [Observation], taxon_pro
     return species_to_common_name
 
 
-def print_distinct_species_in_taxon(observations: [Observation], taxon_property_name: str, filter_value: str) -> None:
+def print_distinct_species_in_taxon(observations: list[Observation], taxon_property_name: str, filter_value: str) -> None:
     assert len(observations) > 0
     species_to_common_name = _get_distinct_species_to_common_names(observations, taxon_property_name, filter_value)
     table = PrettyTable()

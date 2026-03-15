@@ -27,10 +27,18 @@ def test_extract_yearly_observation_counts(observations) -> None:
 
     years, counts = extract_yearly_observation_counts(observations)
 
-    print(years)
-    print(expected_years)
     assert years == expected_years
     assert counts == expected_counts
+
+
+def test_extract_yearly_observation_counts_returns_empty_when_all_dates_missing() -> None:
+    observation = Mock(spec=Observation)
+    observation.observed_on = ''
+
+    years, counts = extract_yearly_observation_counts([observation])
+
+    assert years == ()
+    assert counts == ()
 
 
 if __name__ == '__main__':

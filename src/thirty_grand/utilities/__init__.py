@@ -1,5 +1,4 @@
 from collections import Counter
-from typing import List, Tuple
 
 from thirty_grand.observation import Observation
 
@@ -11,7 +10,7 @@ def is_probable_species(scientific_name: str) -> bool:
     return len(split_by_species) >= 2 and len(split_by_species) < 4
 
 
-def extract_years(observations: [Observation]) -> List[int]:
+def extract_years(observations: list[Observation]) -> list[int]:
     """
     Extract year ints from a list of observations.
 
@@ -22,7 +21,7 @@ def extract_years(observations: [Observation]) -> List[int]:
     return [obs.get_year() for obs in observations if obs.observed_on != '']
 
 
-def extract_yearly_observation_counts(observations: [Observation]) -> Tuple[List[int], List[int]]:
+def extract_yearly_observation_counts(observations: list[Observation]) -> tuple[list[int], list[int]]:
     """
     Extract a tuple of years with their counts from a list of observations.
 
@@ -31,6 +30,9 @@ def extract_yearly_observation_counts(observations: [Observation]) -> Tuple[List
     """
     assert len(observations) > 0
     year_counts = Counter(extract_years(observations))
+
+    if not year_counts:
+        return (), ()
 
     years, counts = zip(*year_counts.items())
 

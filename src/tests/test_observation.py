@@ -66,6 +66,12 @@ def test_constructor(observation, observation_data) -> None:
 def test_get_year(observation) -> None:
     assert observation.get_year() == 2023
 
+
+def test_get_year_raises_when_observed_on_is_empty(observation) -> None:
+    observation.observed_on = ''
+    with pytest.raises(ValueError):
+        observation.get_year()
+
 def test_repr(observation) -> None:
     expected_repr = (
         "Observation(obs_id=1, "

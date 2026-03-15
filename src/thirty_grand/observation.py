@@ -2,7 +2,6 @@ import datetime
 from dataclasses import dataclass
 
 import pandas as pd
-from pandas.core import series
 
 
 @dataclass
@@ -12,7 +11,7 @@ class Observation:
     """
     def __init__(
             self,
-            obs_id,
+            obs_id: int,
             observed_on_string: str,
             observed_on: str,
             time_observed_at: str,
@@ -62,7 +61,7 @@ class Observation:
         return datetime.datetime.strptime(self.observed_on, "%Y-%m-%d").year
 
     @staticmethod
-    def create_from_row(row: series) -> object:
+    def create_from_row(row: pd.Series) -> "Observation":
         assert row is not None
         return Observation(
             obs_id=row['id'],
